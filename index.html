@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#11131b">
+<meta name="description" content="An interactive Theory of Mind lab exploring belief tracking, perspective-taking, and interpretable AI.">
+<title>Theory of Mind Lab — Krishnasree</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="noise"></div>
+<header class="topbar">
+  <a class="wordmark" href="#"><span class="mark">◎</span> TOM<span class="muted">/LAB</span></a>
+  <div class="top-right"><span class="live-dot"></span> INTERACTIVE COGNITION EXPERIMENT <span class="top-index">001—003</span></div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow"><span>RESEARCH PLAYGROUND</span><span class="line"></span><span>THEORY OF MIND</span></div>
+    <h1>Can you model<br>another <em>mind?</em></h1>
+    <p class="intro">You know what happened. They don't. Can you predict what someone believes when their view of reality is different from yours?</p>
+    <a class="scroll-cue" href="#experiment"><span class="scroll-icon">↓</span> ENTER THE EXPERIMENT</a>
+    <div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div>
+    <div class="hero-node node-a"></div><div class="hero-node node-b"></div><div class="hero-node node-c"></div>
+    <div class="hero-caption">REALITY ≠ BELIEF<br><span>KEEP BOTH IN MIND</span></div>
+  </section>
+
+  <section id="experiment" class="lab-section">
+    <div class="section-head">
+      <div><div class="eyebrow"><span>01 / FALSE BELIEF</span><span class="line"></span></div><h2>The chocolate test</h2></div>
+      <div class="counter"><span id="stepCount">01</span><span class="counter-slash">/</span>03</div>
+    </div>
+    <p class="section-copy">Sana puts the chocolate in the <b>drawer</b> and leaves. While she's away, Alex moves it to the <b>cupboard</b>.</p>
+
+    <div class="scene-card">
+      <div class="scene-top"><span>SCENE STATE</span><span class="state-chip" id="sceneChip">SANA IS AWAY</span></div>
+      <div class="scene" id="scene">
+        <div class="room-label label-left">DRAWER <span>LOCATION A</span></div>
+        <div class="room-label label-right">CUPBOARD <span>LOCATION B</span></div>
+        <div class="furniture drawer"><div class="furniture-top"></div><div class="drawer-front"><span> A </span></div></div>
+        <div class="furniture cupboard"><div class="cup-top"></div><div class="cup-body"><div class="shelf"></div><div class="shelf"></div><div class="cup-knob"></div></div></div>
+        <div class="chocolate" id="chocolate"><span>CHOCO</span><i></i></div>
+        <div class="person sana"><div class="head"></div><div class="body"></div><div class="person-name">SANA</div><div class="thought" id="sanaThought">I left it<br>in the drawer.</div></div>
+        <div class="person alex"><div class="head"></div><div class="body"></div><div class="person-name">ALEX</div><div class="thought">I moved it<br>to the cupboard.</div></div>
+        <div class="away-tag">← OUT OF ROOM</div>
+      </div>
+      <div class="scene-legend"><span><i class="legend-dot reality"></i> ACTUAL LOCATION</span><span><i class="legend-dot belief"></i> SANA'S BELIEF</span><span><i class="legend-dot unseen"></i> NOT WITNESSED</span></div>
+    </div>
+
+    <div class="control-grid">
+      <div class="control-card">
+        <div class="mini-label">YOUR ACTION</div>
+        <h3>Move the chocolate</h3>
+        <p>Change reality while Sana is away.</p>
+        <div class="button-row">
+          <button class="choice-button" id="moveDrawer" type="button">← Drawer</button>
+          <button class="choice-button active" id="moveCupboard" type="button">Cupboard →</button>
+        </div>
+        <div class="mini-label gap-label">WHO WITNESSED IT?</div>
+        <label class="toggle-row"><span><b>Sana saw the move</b><small>Update her belief when she returns</small></span><input id="sawMove" type="checkbox"><span class="toggle"></span></label>
+      </div>
+      <div class="control-card prediction-card">
+        <div class="mini-label">MAKE A PREDICTION</div>
+        <h3>Where will Sana look first?</h3>
+        <p>Choose based on what Sana believes, not just what you know.</p>
+        <div class="answer-buttons">
+          <button class="answer" data-answer="drawer" type="button"><span class="answer-letter">A</span><span>Drawer</span><span class="answer-arrow">↗</span></button>
+          <button class="answer" data-answer="cupboard" type="button"><span class="answer-letter">B</span><span>Cupboard</span><span class="answer-arrow">↗</span></button>
+        </div>
+        <div id="feedback" class="feedback" aria-live="polite">SELECT A PREDICTION TO CONTINUE</div>
+      </div>
+    </div>
+
+    <div class="belief-panel">
+      <div class="belief-title"><span class="mini-label">LIVE MENTAL-STATE MODEL</span><span class="lock-icon">◎</span></div>
+      <div class="belief-row"><div class="belief-agent"><span class="avatar avatar-s">S</span><span><b>Sana believes</b><small>Her representation of the world</small></span></div><div class="belief-value" id="beliefValue">Drawer</div></div>
+      <div class="belief-row"><div class="belief-agent"><span class="avatar avatar-r">R</span><span><b>Reality is</b><small>The actual world state</small></span></div><div class="belief-value actual" id="realityValue">Cupboard</div></div>
+      <div class="belief-row"><div class="belief-agent"><span class="avatar avatar-y">You</span><span><b>You know</b><small>All events in the scene</small></span></div><div class="belief-value observer" id="youValue">Cupboard</div></div>
+      <div class="belief-foot"><span class="live-dot"></span> MODEL UPDATES WHEN YOU CHANGE THE SCENE</div>
+    </div>
+
+    <div class="next-row"><span id="progressText">EXPERIMENT 1 OF 3</span><button id="nextExperiment" class="next-button" type="button">Next experiment <span>→</span></button></div>
+  </section>
+
+  <section class="experiment-two hidden" id="experimentTwo">
+    <div class="section-head"><div><div class="eyebrow"><span>02 / ACCESS TO INFORMATION</span><span class="line"></span></div><h2>Who saw what?</h2></div><div class="counter">02<span class="counter-slash">/</span>03</div></div>
+    <p class="section-copy">Maya sees a coin placed in a red box. She leaves. You can decide whether Leo witnesses the coin being moved to the blue box.</p>
+    <div class="access-grid">
+      <div class="access-card"><div class="access-icon red">A</div><b>Maya</b><span id="mayaKnowledge">Believes: red box</span><div class="knowledge-meter"><i id="mayaMeter"></i></div><small>Access to the original event</small></div>
+      <div class="access-card"><div class="access-icon blue">L</div><b>Leo</b><span id="leoKnowledge">Believes: blue box</span><div class="knowledge-meter"><i id="leoMeter"></i></div><small>Access to the move</small></div>
+    </div>
+    <div class="control-card wide-card">
+      <div class="mini-label">CHANGE THE EVIDENCE</div><label class="toggle-row"><span><b>Leo witnesses the move</b><small>Turn this on to give Leo access to the event.</small></span><input id="leoSaw" type="checkbox"><span class="toggle"></span></label>
+      <div class="button-row"><button id="mayaQuestion" class="choice-button" type="button">Ask Maya</button><button id="leoQuestion" class="choice-button" type="button">Ask Leo</button></div>
+      <div id="witnessFeedback" class="feedback" aria-live="polite">ASK A CHARACTER WHAT THEY BELIEVE</div>
+    </div>
+    <div class="next-row"><span>MENTAL STATES DEPEND ON OBSERVATION</span><button id="toAgent" class="next-button" type="button">Test an agent <span>→</span></button></div>
+  </section>
+
+  <section class="experiment-three hidden" id="experimentThree">
+    <div class="section-head"><div><div class="eyebrow"><span>03 / MODEL COMPARISON</span><span class="line"></span></div><h2>Reality or perspective?</h2></div><div class="counter">03<span class="counter-slash">/</span>03</div></div>
+    <p class="section-copy">Two simple agents predict where Sana will search. One follows the actual world state. The other tracks what Sana has witnessed.</p>
+    <div class="agent-compare">
+      <div class="agent-card">
+        <div class="agent-top"><span class="agent-symbol">R</span><span class="mini-label">AGENT A</span></div><h3>Reality-first</h3><p>Predicts using the object's current location.</p><div class="agent-prediction" id="realityAgent">Cupboard</div><div class="agent-status" id="realityStatus">READY TO COMPARE</div>
+      </div>
+      <div class="agent-card featured">
+        <div class="agent-top"><span class="agent-symbol mind">M</span><span class="mini-label">AGENT B</span></div><h3>Belief-tracking</h3><p>Predicts using Sana's information and beliefs.</p><div class="agent-prediction" id="mindAgent">Drawer</div><div class="agent-status" id="mindStatus">READY TO COMPARE</div>
+      </div>
+    </div>
+    <button id="runComparison" class="run-button" type="button"><span>▶</span> RUN COMPARISON</button>
+    <div id="comparisonResult" class="comparison-result" aria-live="polite">Run the comparison to inspect both predictions.</div>
+    <div class="closing-note"><span class="closing-glyph">∴</span><div><b>A correct prediction isn't proof of understanding.</b><p>A system might answer correctly through pattern matching, without explicitly representing another agent's beliefs. The scientific challenge is to test how robustly it tracks knowledge, perspective, and hidden mental states.</p></div></div>
+    <div class="restart-row"><button id="restart" class="choice-button" type="button">↺ Reset lab</button><span>BUILT TO EXPLORE, NOT TO DIAGNOSE</span></div>
+  </section>
+
+  <section class="research-footer">
+    <div class="footer-line"></div><div class="eyebrow"><span>THE QUESTIONS THAT DRIVE ME</span></div>
+    <div class="interest-grid">
+      <div><span>01</span><h3>Theory of Mind</h3><p>How do we represent beliefs, intentions, and perspectives other than our own?</p></div>
+      <div><span>02</span><h3>Cognitive modelling</h3><p>Can computational models explain the mechanisms behind human thought?</p></div>
+      <div><span>03</span><h3>Interpretable AI</h3><p>Can we inspect the reasoning behind a model's predictions?</p></div>
+    </div>
+    <div class="footer-bottom"><span>KRISHNASREE · MSc ARTIFICIAL INTELLIGENCE, EDINBURGH</span><span><a href="https://github.com/krsnkkv">GITHUB ↗</a> &nbsp; <a href="https://krishnasree-seven.vercel.app">PORTFOLIO ↗</a></span></div>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
